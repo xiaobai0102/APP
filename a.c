@@ -26,3 +26,30 @@ private void loadNotes() {
     android:layout_height="wrap_content"
     android:maxLines="1"
     android:ellipsize="end" />
+
+// 新的
+private void loadNotes() {
+    notesList.clear();
+    Cursor cursor = db.query("notes", null, "username=?", new String[]{username}, null, null, "timestamp DESC");
+    if (cursor != null) {
+        while (cursor.moveToNext()) {
+            @SuppressLint("Range") String title = cursor.getString(cursor.getColumnIndex("title"));
+            @SuppressLint("Range") String content = cursor.getString(cursor.getColumnIndex("content"));
+
+            // 提取第一行内容
+            String firstLine = content.split("\n")[0];
+
+            // 如果内容超过一定字符数，则添加省略号
+            int maxLength = 50; // 你可以调整这个值来控制显示字符的数量
+            if (firstLine.length() > maxLength) {
+                firstLine = firstLine.substring(0, maxLength) + "...";
+            }
+
+            // 将标题和截取后的第一行内容添加到笔记列表中
+            notesList.add(title + "\n" + firstLine);
+        }
+        cursor.close();
+    }
+    adapter.notifyDataSetChanged();
+}
+
