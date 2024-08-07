@@ -19,7 +19,7 @@ private void loadNotes() {
 }
 
 
-
+// 布局文件
 <TextView
     android:id="@+id/noteContent"
     android:layout_width="match_parent"
