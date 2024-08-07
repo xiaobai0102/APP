@@ -17,3 +17,12 @@ private void loadNotes() {
     }
     adapter.notifyDataSetChanged(); // 通知适配器数据已更改
 }
+
+
+
+<TextView
+    android:id="@+id/noteContent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:maxLines="1"
+    android:ellipsize="end" />
